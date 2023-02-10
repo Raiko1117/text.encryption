@@ -71,6 +71,46 @@ public class Database {
         }
     }
 
+    public void updateRow(int id, String encryptedText, String decryptedText, String key) {
+        try {
+            String sql = "UPDATE text_encryption SET incrypted_text = ?, decrypted_text = ?, key = ? WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, encryptedText);
+            statement.setString(2, decryptedText);
+            statement.setString(3, key);
+            statement.setInt(4, id);
+
+            int rowsUpdated = statement.executeUpdate();
+            System.out.println("Number of rows updated: " + rowsUpdated);
+        } catch (SQLException e) {
+            System.out.println("Error updating data in the table: " + e.getMessage());
+        }
+    }
+
+    public void deleteRow(int id) {
+        try {
+            String sql = "DELETE FROM text_encryption WHERE id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, id);
+
+            int rowsDeleted = statement.executeUpdate();
+            System.out.println("Number of rows deleted: " + rowsDeleted);
+        } catch (SQLException e) {
+            System.out.println("Error deleting data from the table: " + e.getMessage());
+        }
+    }
+    public void close() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing the database connection: " + e.getMessage());
+        }
+    }
+
+
+
 }
 
 
