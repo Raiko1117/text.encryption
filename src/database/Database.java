@@ -15,7 +15,7 @@ public class Database {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e);
         }
     }
 
@@ -23,6 +23,7 @@ public class Database {
         try {
             String sql = "INSERT INTO text_encryption (id, incrypted_text, decrypted_text, key) VALUES (?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
+
             statement.setInt(1, id);
             statement.setString(2, encryptedText);
             statement.setString(3, decryptedText);
@@ -80,8 +81,7 @@ public class Database {
             statement.setString(3, key);
             statement.setInt(4, id);
 
-            int rowsUpdated = statement.executeUpdate();
-            System.out.println("Number of rows updated: " + rowsUpdated);
+            statement.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error updating data in the table: " + e.getMessage());
         }
