@@ -5,6 +5,7 @@ import encryption.EncryptionAlgorithm;
 import keys.AESKeyGenerator;
 import keys.DESKeyGenerator;
 import keys.KeyGenerator;
+import keys.RandomStringGenerator;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.util.InputMismatchException;
@@ -15,6 +16,7 @@ public class Main {
 
         Database database = new Database();
         Scanner sc = new Scanner(System.in);
+        RandomStringGenerator rg = new RandomStringGenerator();
 
         while (true) {
 
@@ -41,7 +43,7 @@ public class Main {
                         System.out.print("Write: id target key: ");
                         int id = sc.nextInt();
                         String target = sc.next();
-                        String key = sc.next();
+                        String key = rg.generateRandomString();
                         AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();
                         AESEncryption aesEncryption = new AESEncryption("secretkey1234567890abcdw", aesKeyGenerator);
 
@@ -56,7 +58,7 @@ public class Main {
                         int id = sc.nextInt();
                         sc.next();
                         String target = sc.next();
-                        String key = sc.next();
+                        String key = rg.generateRandomString();
                         DESEncryption desEncryption = new DESEncryption(key);
                         String incryptedText = desEncryption.encrypt(target);
                         String decryptedText = desEncryption.decrypt(incryptedText);
@@ -84,7 +86,7 @@ public class Main {
                         System.out.print("Enter target that you want to put for ID "+ id + ": ");
                         String target = sc.next();
                         System.out.print("Enter key that you want to use for ID "+ id + ": ");
-                        String key = sc.next();
+                        String key = rg.generateRandomString();
                         AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();
                         AESEncryption aesEncryption = new AESEncryption("secretkey1234567890abcdw", aesKeyGenerator);
                         String incryptedText = aesEncryption.encrypt(target);
@@ -97,7 +99,7 @@ public class Main {
                         System.out.print("Enter target that you want to put for ID "+ id + ": ");
                         String target = sc.next();
                         System.out.print("Enter key that you want to use for ID "+ id + ": ");
-                        String key = sc.next();
+                        String key = rg.generateRandomString();
                         DESEncryption desEncryption = new DESEncryption(key);
                         String incryptedText = desEncryption.encrypt(target);
                         String decryptedText = desEncryption.decrypt(incryptedText);
