@@ -40,12 +40,12 @@ public class Main {
                     if(alg==1){
                         System.out.println("\u001B[31m\t" + "REMINDER! Key must be 24 chars" + "\u001B[0m");
 
-                        System.out.print("Write: id target key: ");
+                        System.out.print("Write: id target: ");
                         int id = sc.nextInt();
                         String target = sc.next();
                         String key = rg.generateRandomString();
                         AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();
-                        AESEncryption aesEncryption = new AESEncryption("secretkey1234567890abcdw", aesKeyGenerator);
+                        AESEncryption aesEncryption = new AESEncryption(key, aesKeyGenerator);
 
                         String incryptedText = aesEncryption.encrypt(target);
                         String decryptedText = aesEncryption.decrypt(incryptedText);
@@ -54,7 +54,7 @@ public class Main {
 
                     }
                     else if(alg==2){
-                        System.out.print("Write: id target key: ");
+                        System.out.print("Write: id target: ");
                         int id = sc.nextInt();
                         sc.next();
                         String target = sc.next();
@@ -85,10 +85,9 @@ public class Main {
                         int id = sc.nextInt();
                         System.out.print("Enter target that you want to put for ID "+ id + ": ");
                         String target = sc.next();
-                        System.out.print("Enter key that you want to use for ID "+ id + ": ");
                         String key = rg.generateRandomString();
                         AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();
-                        AESEncryption aesEncryption = new AESEncryption("secretkey1234567890abcdw", aesKeyGenerator);
+                        AESEncryption aesEncryption = new AESEncryption(key, aesKeyGenerator);
                         String incryptedText = aesEncryption.encrypt(target);
                         String decryptedText = aesEncryption.decrypt(incryptedText);
                         database.updateRow(id, incryptedText, decryptedText, key);
@@ -98,7 +97,6 @@ public class Main {
                         int id = sc.nextInt();
                         System.out.print("Enter target that you want to put for ID "+ id + ": ");
                         String target = sc.next();
-                        System.out.print("Enter key that you want to use for ID "+ id + ": ");
                         String key = rg.generateRandomString();
                         DESEncryption desEncryption = new DESEncryption(key);
                         String incryptedText = desEncryption.encrypt(target);
