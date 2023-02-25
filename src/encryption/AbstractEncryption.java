@@ -1,13 +1,13 @@
 package encryption;
 
-import keys.KeyGenerator;
+import keys.SecretKeyGenerator;
 
 import javax.crypto.spec.SecretKeySpec;
 
 public abstract class AbstractEncryption implements EncryptionAlgorithm {
     protected SecretKeySpec key;
 
-    public AbstractEncryption(String secretKey, KeyGenerator keyGenerator) {
+    public AbstractEncryption(String secretKey, SecretKeyGenerator keyGenerator) {
         this.key = keyGenerator.generateKey(secretKey);
     }
 }

@@ -1,6 +1,6 @@
 package encryption;
 
-import keys.KeyGenerator;
+import keys.SecretKeyGenerator;
 
 import javax.crypto.Cipher;
 import java.util.Base64;
@@ -10,7 +10,7 @@ public class AESEncryption extends AbstractEncryption {
 
     private Cipher cipher;
 
-    public AESEncryption(String secretKey, KeyGenerator keyGenerator) {
+    public AESEncryption(String secretKey, SecretKeyGenerator keyGenerator) {
         super(secretKey, keyGenerator);
 
         try {

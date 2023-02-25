@@ -2,6 +2,6 @@ package keys;
 
 import javax.crypto.spec.SecretKeySpec;
 
-public interface KeyGenerator {
+public interface SecretKeyGenerator {
     SecretKeySpec generateKey(String secretKey);
 }

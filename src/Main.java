@@ -2,9 +2,9 @@ import database.Database;
 import encryption.AESEncryption;
 import encryption.DESEncryption;
 import encryption.EncryptionAlgorithm;
+import encryption.EncryptionAlgorithmFactory;
 import keys.AESKeyGenerator;
-import keys.DESKeyGenerator;
-import keys.KeyGenerator;
+
 import keys.RandomStringGenerator;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -38,6 +38,7 @@ public class Main {
                     System.out.print("\u001B[33mWhich algorithm do you want to use?(AES(1) or DES(2)): ");
                     int alg = sc.nextInt();
                     if(alg==1){
+                        String algorithm = "AES";
                         System.out.println("\u001B[31m\t" + "REMINDER! Key must be 24 chars" + "\u001B[0m");
 
                         System.out.print("Write: id target: ");
@@ -45,21 +46,26 @@ public class Main {
                         String target = sc.next();
                         String key = rg.generateRandomString();
                         AESKeyGenerator aesKeyGenerator = new AESKeyGenerator();
-                        AESEncryption aesEncryption = new AESEncryption(key, aesKeyGenerator);
 
+                        EncryptionAlgorithmFactory encryptionAlgorithmFactory = new EncryptionAlgorithmFactory(aesKeyGenerator);
+                        EncryptionAlgorithm aesEncryption = encryptionAlgorithmFactory.createEncryptionAlgorithm(algorithm,key);
                         String incryptedText = aesEncryption.encrypt(target);
                         String decryptedText = aesEncryption.decrypt(incryptedText);
+
 
                         database.createRow(id, incryptedText, decryptedText, key);
 
                     }
                     else if(alg==2){
+                        String algorithm = "DES";
+
                         System.out.print("Write: id target: ");
                         int id = sc.nextInt();
-                        sc.next();
+
                         String target = sc.next();
                         String key = rg.generateRandomString();
-                        DESEncryption desEncryption = new DESEncryption(key);
+                        EncryptionAlgorithmFactory encryptionAlgorithmFactory = new EncryptionAlgorithmFactory();
+                        EncryptionAlgorithm desEncryption = encryptionAlgorithmFactory.createEncryptionAlgorithm(algorithm,key);
                         String incryptedText = desEncryption.encrypt(target);
                         String decryptedText = desEncryption.decrypt(incryptedText);
                         database.createRow(id, incryptedText, decryptedText, key);
